@@ -1,0 +1,53 @@
+﻿<Page x:Class="mlekarna.CustomerView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:mlekarna"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="CustomerView">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Click="Button_Click">Back</Button>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">Name</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Name}" Grid.ColumnSpan="2"></TextBlock>
+
+        <TextBlock Grid.Row="2" Grid.Column="0">Surname</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Surname}" Grid.ColumnSpan="2"></TextBlock>
+
+        <TextBlock Grid.Row="3" Grid.Column="0">Alergie</TextBlock>
+        <ListBox Name="AllergyList" Grid.Row="4" Grid.ColumnSpan="3" ItemsSource="{Binding Allergies}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="AddButton" Click="AddButton_Click" Grid.Row="5">Přidat</Button>
+        <Button x:Name="RemoveButton" Click="RemoveButton_Click" Grid.Row="5" Grid.Column="1" Content="Odebrat">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=AllergyList, Path=SelectedItem}" Value="{x:Null}">
+                            <Setter Property="IsEnabled" Value="False"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+    </Grid>
+</Page>
