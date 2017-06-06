@@ -19,7 +19,13 @@
             </ListBox>
         </TabItem>
         <TabItem Header="Léky">
-
+            <ListBox x:Name="DrugList" ItemsSource="{Binding Drugs}" MouseDoubleClick="DrugList_MouseDoubleClick">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </TabItem>
     </TabControl>
 </Page>

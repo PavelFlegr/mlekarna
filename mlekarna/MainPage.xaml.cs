@@ -37,5 +37,10 @@ namespace mlekarna
             var source = (sender as ListBox).SelectedItem as CustomerVM;
             NavigationService.Navigate(new CustomerView(source));
         }
+
+        private void DrugList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

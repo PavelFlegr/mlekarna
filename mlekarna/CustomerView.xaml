@@ -30,7 +30,7 @@
         <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Surname}" Grid.ColumnSpan="2"></TextBlock>
 
         <TextBlock Grid.Row="3" Grid.Column="0">Alergie</TextBlock>
-        <ListBox Name="AllergyList" Grid.Row="4" Grid.ColumnSpan="3" ItemsSource="{Binding Allergies}">
+        <ListBox Name="AllergyList" SelectionMode="Multiple" Grid.Row="4" Grid.ColumnSpan="3" ItemsSource="{Binding Allergies}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}"></TextBlock>

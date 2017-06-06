@@ -22,8 +22,8 @@ namespace mlekarna
     {
         CustomerVM _customer
         {
-            get => DataContext as CustomerVM;
-            set => DataContext = value;
+            get { return DataContext as CustomerVM; }
+            set { DataContext = value; }
         }
         public CustomerView(CustomerVM customer)
         {
@@ -42,13 +42,16 @@ namespace mlekarna
             var w = new SelectSubstance();
             if(w.ShowDialog() == true)
             {
-                _customer.Allergies.Add(w.SelectedSubstance);
+                foreach(Substance s in w.SelectedSubstances)
+                    _customer.Allergies.Add(s);
             }
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var tmp = new List<Substance>(AllergyList.SelectedItems.Cast<Substance>());
+            foreach (Substance s in tmp)
+                _customer.Allergies.Remove(s);
         }
     }
 }

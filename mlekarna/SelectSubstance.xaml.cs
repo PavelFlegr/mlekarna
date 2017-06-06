@@ -20,22 +20,32 @@ namespace mlekarna
     /// </summary>
     public partial class SelectSubstance : Window
     {
-        public Substance SelectedSubstance { get; set; }
+        public IEnumerable<Substance> SelectedSubstances { get; set; }
         public ObservableCollection<Substance> Substances { get; set; }
         public SelectSubstance()
         {
             InitializeComponent();
             Substances = new ObservableCollection<Substance>
             {
-                new Substance("čokoláda"),
-                new Substance("oříšky")
+                new Substance("latka2"),
+                new Substance("látka3")
             };
             DataContext = this;
         }
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            SelectedSubstance = (sender as ListBox).SelectedItem as Substance;
+            SetSelected();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SetSelected();
+        }
+
+        void SetSelected()
+        {
+            SelectedSubstances = substances.SelectedItems.Cast<Substance>();
             DialogResult = true;
             Close();
         }

@@ -6,11 +6,14 @@
         xmlns:local="clr-namespace:mlekarna"
         mc:Ignorable="d"
         Title="SelectSubstance" Height="300" Width="300" ResizeMode="NoResize">
-    <ListBox ItemsSource="{Binding Substances}" MouseDoubleClick="ListBox_MouseDoubleClick">
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding Name}"></TextBlock>
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </ListBox>
+    <StackPanel>
+        <ListBox x:Name="substances" SelectionMode="Extended" ItemsSource="{Binding Substances}" MouseDoubleClick="ListBox_MouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Click="Button_Click" HorizontalAlignment="Left">Přidat</Button>
+    </StackPanel>
 </Window>

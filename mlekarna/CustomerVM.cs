@@ -13,17 +13,17 @@ namespace mlekarna
         Customer _customer;
         public string Name
         {
-            get => _customer.Name;
-            set => _customer.Name = value;
+            get { return _customer.Name; }
+            set { _customer.Name = value; }
         }
         public string Surname
         {
-            get => _customer.Surname;
-            set => _customer.Surname = value;
+            get { return _customer.Surname; }
+            set { _customer.Surname = value; }
         }
         public string FullName
         {
-            get => string.Format("{0} {1}", Name, Surname);
+            get { return string.Format("{0} {1}", Name, Surname); }
         }
 
         public CustomerVM(Customer customer)
@@ -31,7 +31,7 @@ namespace mlekarna
             _customer = customer;
             Allergies = new ObservableCollection<Substance>
             {
-                new Substance("mléko")
+                new Substance("látka15")
             };
         }
     }
