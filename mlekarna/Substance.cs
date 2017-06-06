@@ -11,9 +11,9 @@ namespace mlekarna
         public int ID { get; set; }
         public string Name { get; set; }
 
-        public Substance(string Name)
+        public Substance(string name)
         {
-
+            Name = name;
         }
     }
 }

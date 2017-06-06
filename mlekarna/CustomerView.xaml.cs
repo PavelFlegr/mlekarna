@@ -20,11 +20,16 @@ namespace mlekarna
     /// </summary>
     public partial class CustomerView : Page
     {
-        public List<Substance> Allergies { get; set; }
+        CustomerVM _customer
+        {
+            get => DataContext as CustomerVM;
+            set => DataContext = value;
+        }
         public CustomerView(CustomerVM customer)
         {
             InitializeComponent();
-            DataContext = customer;
+            
+            _customer = customer;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -37,7 +42,7 @@ namespace mlekarna
             var w = new SelectSubstance();
             if(w.ShowDialog() == true)
             {
-                Allergies.Add(w.SelectedSubstance);
+                _customer.Allergies.Add(w.SelectedSubstance);
             }
         }
 

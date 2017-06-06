@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace mlekarna
 {
     public class CustomerVM
     {
+        public ObservableCollection<Substance> Allergies { get; set; }
         Customer _customer;
         public string Name
         {
@@ -27,6 +29,10 @@ namespace mlekarna
         public CustomerVM(Customer customer)
         {
             _customer = customer;
+            Allergies = new ObservableCollection<Substance>
+            {
+                new Substance("mléko")
+            };
         }
     }
 }

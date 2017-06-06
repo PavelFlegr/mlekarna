@@ -27,7 +27,8 @@ namespace mlekarna
             InitializeComponent();
             Substances = new ObservableCollection<Substance>
             {
-                new Substance()
+                new Substance("čokoláda"),
+                new Substance("oříšky")
             };
             DataContext = this;
         }
