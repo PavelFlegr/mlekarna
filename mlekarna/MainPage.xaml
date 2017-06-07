@@ -27,5 +27,37 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </TabItem>
+        <TabItem Header="Látky">
+            <ListBox x:Name="SubstanceList" SelectionMode="Extended" ItemsSource="{Binding Substances}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <Button x:Name="AddButton" Click="AddButton_Click">Přidat</Button>
+                <Button x:Name="RemoveButton" Content="Odstranit" Click="RemoveButton_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=Substances, Path=SelectedItems.Count}" Value="0">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button x:Name="RenameButton" Content="Přejmenovat" Click="RenameButton_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=Substances, Path=SelectedItem}" Value="{x:Null}">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </ListBox>
+        </TabItem>
     </TabControl>
 </Page>

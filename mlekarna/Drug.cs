@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace mlekarna
 {
-    class Drug
+    public class Drug
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public Drug(string name)
+        {
+            Name = name;
+        }
     }
 }
