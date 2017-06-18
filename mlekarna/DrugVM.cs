@@ -19,11 +19,7 @@ namespace mlekarna
         public DrugVM(Drug drug)
         {
             _drug = drug;
-            Substances = new ObservableCollection<Substance>
-            {
-                new Substance("latka1"),
-                new Substance("latka2")
-            };
+            Substances = new ObservableCollection<Substance>(DB<Substance>.GetItems().Where(s => DB<DrugSubstance>.GetItems().Where(ds => ds.DrugID == _drug.ID).Select(da => da.SubstanceID).Any(id => s.ID == id)));
         }
 
         public ObservableCollection<Substance> Substances { get; set; }

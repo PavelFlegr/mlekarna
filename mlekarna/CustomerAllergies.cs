@@ -11,5 +11,12 @@ namespace mlekarna
         public int ID { get; set; }
         public int CustomerID { get; set; }
         public int SubstanceID { get; set; }
+
+        public CustomerAllergies() { }
+        public CustomerAllergies(int customerID, int substanceID)
+        {
+            CustomerID = customerID;
+            SubstanceID = substanceID;
+        }
     }
 }

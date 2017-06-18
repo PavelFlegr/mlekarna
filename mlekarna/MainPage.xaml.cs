@@ -13,24 +13,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace mlekarna
 {
     /// <summary>
     /// Interakční logika pro MainPage.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class MainPage : Page, INotifyPropertyChanged
     {
         public ObservableCollection<CustomerVM> Customers { get; set; }
-        public ObservableCollection<DrugVM> Drugs {get; set;}
+        public ObservableCollection<DrugVM> Drugs { get; set; }
         public ObservableCollection<Substance> Substances { get; set; }
         public MainPage()
         {
             InitializeComponent();
-            Customers = new ObservableCollection<CustomerVM> {
-                new CustomerVM(new Customer("test1", "surtest1")),
-                new CustomerVM(new Customer("test2", "surtest2"))
-            };
+
+            Customers = new ObservableCollection<CustomerVM>(DB<Customer>.GetItems().Select(c => new CustomerVM(c)));
+
+            Drugs = new ObservableCollection<DrugVM>(DB<Drug>.GetItems().Select(d => new DrugVM(d)));
 
             Drugs = new ObservableCollection<DrugVM>
             {
@@ -45,7 +46,12 @@ namespace mlekarna
                 new Substance("LATKA2")
             };
             DataContext = this;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
         }
+
+        string mode;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         private void CustomerList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -61,17 +67,49 @@ namespace mlekarna
 
         private void RenameButton_Click(object sender, RoutedEventArgs e)
         {
-            var s = SubstanceList.SelectedItem as Substance;
+
+            InputBox.Visibility = Visibility.Visible;
+            NameTextBox.Text = (SubstanceList.SelectedItem as Substance).Name;
+            mode = "rename";
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-
+            var list = new List<Substance>(SubstanceList.SelectedItems.Cast<Substance>());
+            foreach(Substance s in list)
+            {
+                Substances.Remove(s);
+            }
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            InputBox.Visibility = Visibility.Visible;
+            mode = "add";
+        }
 
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(mode == "rename")
+            {
+                (SubstanceList.SelectedItem as Substance).Name = NameTextBox.Text;
+            }
+            else
+            {
+                Substances.Add(new Substance(NameTextBox.Text));
+            }
+            BoxCleanUp();
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            BoxCleanUp();
+        }
+
+        void BoxCleanUp()
+        {
+            InputBox.Visibility = Visibility.Collapsed;
+            NameTextBox.Text = "";
         }
     }
 }

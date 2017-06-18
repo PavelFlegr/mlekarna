@@ -8,56 +8,71 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="MainPage">
 
-    <TabControl>
-        <TabItem Header="Zákazníci">
-            <ListBox x:Name="CustomerList" ItemsSource="{Binding Customers}" MouseDoubleClick="CustomerList_MouseDoubleClick">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding FullName}"></TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </TabItem>
-        <TabItem Header="Léky">
-            <ListBox x:Name="DrugList" ItemsSource="{Binding Drugs}" MouseDoubleClick="DrugList_MouseDoubleClick">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"></TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </TabItem>
-        <TabItem Header="Látky">
-            <ListBox x:Name="SubstanceList" SelectionMode="Extended" ItemsSource="{Binding Substances}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}"></TextBlock>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <Button x:Name="AddButton" Click="AddButton_Click">Přidat</Button>
-                <Button x:Name="RemoveButton" Content="Odstranit" Click="RemoveButton_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=Substances, Path=SelectedItems.Count}" Value="0">
-                                    <Setter Property="IsEnabled" Value="False"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Button x:Name="RenameButton" Content="Přejmenovat" Click="RenameButton_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=Substances, Path=SelectedItem}" Value="{x:Null}">
-                                    <Setter Property="IsEnabled" Value="False"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-            </ListBox>
-        </TabItem>
-    </TabControl>
+    <Grid>
+        <TabControl>
+            <TabItem Header="Zákazníci">
+                <ListBox x:Name="CustomerList" ItemsSource="{Binding Customers}" MouseDoubleClick="CustomerList_MouseDoubleClick">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding FullName}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Léky">
+                <ListBox x:Name="DrugList" ItemsSource="{Binding Drugs}" MouseDoubleClick="DrugList_MouseDoubleClick">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Látky">
+                <StackPanel>
+                    <ListBox x:Name="SubstanceList" SelectionMode="Extended" ItemsSource="{Binding Substances}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button x:Name="AddButton" Click="AddButton_Click">Přidat</Button>
+                    <Button x:Name="RemoveButton" Content="Odstranit" Click="RemoveButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=SubstanceList, Path=SelectedItems.Count}" Value="0">
+                                        <Setter Property="IsEnabled" Value="False"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button x:Name="RenameButton" Content="Přejmenovat" Click="RenameButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=SubstanceList, Path=SelectedItems.Count}" Value="0">
+                                        <Setter Property="IsEnabled" Value="False"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        <Grid x:Name="InputBox" Visibility="Collapsed">
+            <Grid Background="Black" Opacity="0.5"/>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Název</TextBlock>
+                    <TextBox Width="200" x:Name="NameTextBox"></TextBox>
+                </StackPanel>
+                <Button x:Name="ConfirmButton" Click="ConfirmButton_Click">OK</Button>
+                <Button x:Name="CancelButton" Click="CancelButton_Click">Cancel</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
 </Page>

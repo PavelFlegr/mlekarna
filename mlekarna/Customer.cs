@@ -12,6 +12,8 @@ namespace mlekarna
         public string Name { get; set; }
         public string Surname { get; set; }
 
+        public Customer() { }
+
         public Customer(string name, string surname)
         {
             Name = name;

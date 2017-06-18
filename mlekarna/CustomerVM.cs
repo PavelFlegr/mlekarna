@@ -11,6 +11,7 @@ namespace mlekarna
     {
         public ObservableCollection<Substance> Allergies { get; set; }
         Customer _customer;
+        public int ID => _customer.ID;
         public string Name
         {
             get { return _customer.Name; }
@@ -29,10 +30,7 @@ namespace mlekarna
         public CustomerVM(Customer customer)
         {
             _customer = customer;
-            Allergies = new ObservableCollection<Substance>
-            {
-                new Substance("látka15")
-            };
+            Allergies = new ObservableCollection<Substance>(DB<Substance>.GetItems().Where(s => DB<CustomerAllergies>.GetItems().Where(ca => ca.CustomerID == _customer.ID).Select(ca => ca.SubstanceID).Any(id => s.ID == id)));
         }
     }
 }
