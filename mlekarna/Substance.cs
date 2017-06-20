@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using SQLite;
 
 namespace mlekarna
 {
     public class Substance : INotifyPropertyChanged
     {
+        [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
         public string Name
         {

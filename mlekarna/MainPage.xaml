@@ -20,13 +20,16 @@
                 </ListBox>
             </TabItem>
             <TabItem Header="Léky">
-                <ListBox x:Name="DrugList" ItemsSource="{Binding Drugs}" MouseDoubleClick="DrugList_MouseDoubleClick">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"></TextBlock>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <ListBox x:Name="DrugList" ItemsSource="{Binding Drugs}" MouseDoubleClick="DrugList_MouseDoubleClick">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button x:Name="AddDrugButton" Click="AddDrugButton_Click">Přidat</Button>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Látky">
                 <StackPanel>

@@ -25,11 +25,7 @@ namespace mlekarna
         public SelectSubstance()
         {
             InitializeComponent();
-            Substances = new ObservableCollection<Substance>
-            {
-                new Substance("latka2"),
-                new Substance("látka3")
-            };
+            Substances = new ObservableCollection<Substance>(DB<Substance>.GetItems());
             DataContext = this;
         }
 

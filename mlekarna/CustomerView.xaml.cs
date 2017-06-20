@@ -21,7 +21,6 @@ namespace mlekarna
     /// </summary>
     public partial class CustomerView : Page
     {
-        public ObservableCollection<Substance> SubstanceList { get; set; }
         CustomerVM _customer
         {
             get { return DataContext as CustomerVM; }
@@ -30,7 +29,6 @@ namespace mlekarna
         public CustomerView(CustomerVM customer)
         {
             InitializeComponent();
-            SubstanceList = new ObservableCollection<Substance> { new Substance("dsds"), new Substance("as") };
             _customer = customer;
             InputBox.DataContext = this;
         }

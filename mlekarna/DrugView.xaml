@@ -38,7 +38,7 @@
             <Button.Style>
                 <Style TargetType="Button">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=Substances, Path=SelectedItem}" Value="{x:Null}">
+                        <DataTrigger Binding="{Binding ElementName=AllergyList, Path=SelectedItem}" Value="{x:Null}">
                             <Setter Property="IsEnabled" Value="False"></Setter>
                         </DataTrigger>
                     </Style.Triggers>

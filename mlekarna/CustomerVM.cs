@@ -27,6 +27,14 @@ namespace mlekarna
             get { return string.Format("{0} {1}", Name, Surname); }
         }
 
+        public ObservableCollection<Drug> CompatibleDrugs
+        {
+            get
+            {
+                return new ObservableCollection<Drug>(DB<Drug>.GetItems().Where(d => !Allergies.Select(s => s.ID).Contains(d.ID)));
+            }
+        }
+
         public CustomerVM(Customer customer)
         {
             _customer = customer;

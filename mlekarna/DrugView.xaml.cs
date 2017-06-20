@@ -38,7 +38,10 @@ namespace mlekarna
             if (w.ShowDialog() == true)
             {
                 foreach (Substance s in w.SelectedSubstances)
+                {
+                    DB<DrugSubstance>.AddItem(new DrugSubstance { DrugID = _drug.ID, SubstanceID = s.ID });
                     _drug.Substances.Add(s);
+                }
             }
         }
 
@@ -46,7 +49,10 @@ namespace mlekarna
         {
             var tmp = new List<Substance>(AllergyList.SelectedItems.Cast<Substance>());
             foreach (Substance s in tmp)
+            {
                 _drug.Substances.Remove(s);
+                DB<DrugSubstance>.RemoveWhere(ds => ds.SubstanceID == s.ID && ds.DrugID == _drug.ID);
+                    }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

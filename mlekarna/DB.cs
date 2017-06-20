@@ -14,6 +14,11 @@ namespace mlekarna
         static DB()
         {
             conn = new SQLiteConnection("db");
+            conn.CreateTable<Customer>();
+            conn.CreateTable<CustomerAllergies>();
+            conn.CreateTable<Substance>();
+            conn.CreateTable<DrugSubstance>();
+            conn.CreateTable<Drug>();
         }
 
         public static List<T> GetItems()

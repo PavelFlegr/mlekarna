@@ -10,6 +10,8 @@ namespace mlekarna
     public class DrugVM
     {
         Drug _drug;
+
+        public int ID => _drug.ID;
         public string Name
         {
             get { return _drug.Name; }
