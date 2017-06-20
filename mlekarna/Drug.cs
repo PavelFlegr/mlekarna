@@ -18,5 +18,13 @@ namespace mlekarna
         {
             Name = name;
         }
+        [Ignore]
+        public List<Substance> Substances
+        {
+            get
+            {
+                return DB<Substance>.GetItems().Where(s => DB<DrugSubstance>.GetItems().Where(ds => ds.DrugID == ID).Select(ds => ds.SubstanceID).Contains(s.ID)).ToList();
+            }
+        }
     }
 }

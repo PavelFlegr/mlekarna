@@ -113,13 +113,38 @@ namespace mlekarna
         void BoxCleanUp()
         {
             InputBox.Visibility = Visibility.Collapsed;
+            SurnameSP.Visibility = Visibility.Collapsed;
             NameTextBox.Text = "";
+            SurnameTextBox.Text = "";
         }
 
         private void AddDrugButton_Click(object sender, RoutedEventArgs e)
         {
             InputBox.Visibility = Visibility.Visible;
             lazyness = ConfirmDrug;
+        }
+
+        private void AddCustomerButton_Click(object sender, RoutedEventArgs e)
+        {
+            InputBox.Visibility = Visibility.Visible;
+            SurnameSP.Visibility = Visibility.Visible;
+            lazyness = ConfirmCustomer;
+        }
+
+        void ConfirmCustomer()
+        {
+            var customer = new Customer(NameTextBox.Text, SurnameTextBox.Text);
+            DB<Customer>.AddItem(customer);
+            Customers.Add(new CustomerVM(customer));
+            BoxCleanUp();
+        }
+
+        private void RemoveCustomerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var customer = CustomerList.SelectedItem as CustomerVM;
+            if (customer == null) return;
+            DB<Customer>.RemoveItem(customer._customer);
+            Customers.Remove(customer);
         }
     }
 }

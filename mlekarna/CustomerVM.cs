@@ -4,13 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace mlekarna
 {
-    public class CustomerVM
+    public class CustomerVM : INotifyPropertyChanged
     {
         public ObservableCollection<Substance> Allergies { get; set; }
-        Customer _customer;
+        public Customer _customer;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void RaisePropertyChanged(string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         public int ID => _customer.ID;
         public string Name
         {
@@ -31,7 +40,7 @@ namespace mlekarna
         {
             get
             {
-                return new ObservableCollection<Drug>(DB<Drug>.GetItems().Where(d => !Allergies.Select(s => s.ID).Contains(d.ID)));
+                return new ObservableCollection<Drug>(DB<Drug>.GetItems().Where(d => !d.Substances.Any(d1 => Allergies.Select(a => a.ID).Contains(d1.ID))));
             }
         }
 

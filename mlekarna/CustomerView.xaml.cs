@@ -30,7 +30,6 @@ namespace mlekarna
         {
             InitializeComponent();
             _customer = customer;
-            InputBox.DataContext = this;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -47,6 +46,7 @@ namespace mlekarna
                 {
                     _customer.Allergies.Add(s);
                     DB<CustomerAllergies>.AddItem(new CustomerAllergies(_customer.ID, s.ID));
+                    _customer.RaisePropertyChanged();
                 }
             }
         }
@@ -58,6 +58,7 @@ namespace mlekarna
             {
                 _customer.Allergies.Remove(s);
                 DB<CustomerAllergies>.RemoveWhere(ca => ca.CustomerID == _customer.ID && ca.SubstanceID == s.ID);
+                _customer.RaisePropertyChanged();
             }
         }
 
